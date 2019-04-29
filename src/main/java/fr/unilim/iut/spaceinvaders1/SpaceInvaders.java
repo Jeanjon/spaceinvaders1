@@ -4,7 +4,6 @@ import fr.unilim.iut.spaceinvaders1.utils.*;
 
 public class SpaceInvaders {
 	
-	private static final int MAXIMUM_GAUCHE = 0;
 	private static final char MARQUE_FIN_LIGNE = '\n';
 	private static final char MARQUE_VIDE = '.';
 	private static final char MARQUE_VAISSEAU = 'V';
@@ -17,6 +16,10 @@ public class SpaceInvaders {
 		this.hauteur = hauteur;
 	 }
 	 
+	 @Override
+		public String toString() {
+			return recupererEspaceJeuDansChaineASCII();
+		}
 
 	public String recupererEspaceJeuDansChaineASCII() {
 		StringBuilder espaceDeJeu = new StringBuilder();
@@ -46,14 +49,15 @@ public class SpaceInvaders {
 		return vaisseau!=null;
 	}
 	 
-	public void positionnerUnNouveauVaisseau(int x, int y) {
-		
-		if (  !estDansEspaceJeu(x, y) )
-			throw new HorsEspaceJeuException("La position du vaisseau est en dehors de l'espace jeu");
-	
-		vaisseau = new Vaisseau(x, y); 
-	}
 
+	public void positionnerUnNouveauVaisseau(int longueur, int hauteur, int x, int y) {
+		if (!estDansEspaceJeu(x, y))
+			throw new HorsEspaceJeuException("La position du vaisseau est en dehors de l'espace jeu");
+
+		vaisseau = new Vaisseau(longueur, hauteur);
+		vaisseau.positionner(x, y);
+	}
+	
 	private boolean estDansEspaceJeu(int x, int y) {
 		return (((x >= 0) && (x < longueur)) && ((y >= 0) && (y < hauteur)));
 	}
@@ -63,7 +67,7 @@ public class SpaceInvaders {
 	}
 
 	public void deplacerVaisseauVersLaGauche() {
-		if (vaisseau.abscisse()> MAXIMUM_GAUCHE) vaisseau.seDeplacerVersLaGauche();
+		if (vaisseau.abscisse()> (0)) vaisseau.seDeplacerVersLaGauche();
 	}
  }
 
