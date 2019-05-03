@@ -63,6 +63,12 @@ public class SpaceInvaders {
 		vaisseau.positionner(x, y);
 	}
 	
+	public void positionnerUnNouveauVaisseau(Dimension dimension, Position position) {
+		positionnerUnNouveauVaisseau(dimension.longueur(), dimension.hauteur(),
+												position.abscisse(), position.ordonnee());
+
+	}
+	
 	private boolean estDansEspaceJeu(int x, int y) {
 		return (((x >= 0) && (x < longueur)) && ((y >= 0) && (y < hauteur)));
 	}
@@ -75,5 +81,7 @@ public class SpaceInvaders {
 	public void deplacerVaisseauVersLaGauche() {
 		if (vaisseau.abscisseLaPlusAGauche()> (0)) vaisseau.seDeplacerVersLaGauche();
 	}
+	
+	
  }
 
