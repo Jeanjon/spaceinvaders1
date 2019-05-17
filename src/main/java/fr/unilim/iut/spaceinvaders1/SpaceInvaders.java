@@ -55,7 +55,7 @@ public class SpaceInvaders implements Jeu{
 	}
 	
 	public boolean aUnMissile() {
-		return missile!=null;
+		return missile != null;
 	}
 	 
 
@@ -84,7 +84,7 @@ public class SpaceInvaders implements Jeu{
 
 	public void deplacerVaisseauVersLaDroite() {
 		if (vaisseau.abscisseLaPlusADroite() < (longueur - 1)) {
-			vaisseau.seDeplacerVersLaDroite();
+			vaisseau.deplacerHorizontalementVers(Direction.DROITE);
 			if (!estDansEspaceJeu(vaisseau.abscisseLaPlusADroite(), vaisseau.ordonneeLaPlusHaute())) {
 				vaisseau.positionner(longueur - vaisseau.longueur(), vaisseau.ordonneeLaPlusHaute());
 			}
@@ -92,10 +92,11 @@ public class SpaceInvaders implements Jeu{
 	}
 
 	public void deplacerVaisseauVersLaGauche() {
-		if (0 < vaisseau.abscisseLaPlusAGauche())
-			vaisseau.seDeplacerVersLaGauche();
-		if (!estDansEspaceJeu(vaisseau.abscisseLaPlusAGauche(), vaisseau.ordonneeLaPlusHaute())) {
-			vaisseau.positionner(0, vaisseau.ordonneeLaPlusHaute());
+		if (0 < vaisseau.abscisseLaPlusAGauche()) {
+			vaisseau.deplacerHorizontalementVers(Direction.GAUCHE);
+			if (!estDansEspaceJeu(vaisseau.abscisseLaPlusAGauche(), vaisseau.ordonneeLaPlusHaute())) {
+				vaisseau.positionner(0, vaisseau.ordonneeLaPlusHaute());
+			}
 		}
 	}
 
@@ -109,6 +110,16 @@ public class SpaceInvaders implements Jeu{
       if (commandeUser.droite) {
 	        deplacerVaisseauVersLaDroite();
       }
+      
+      if (commandeUser.tir && !this.aUnMissile()) {
+          tirerUnMissile(new Dimension(Constante.MISSILE_LONGUEUR, Constante.MISSILE_HAUTEUR),
+					Constante.MISSILE_VITESSE);
+	  }
+      
+     
+      deplacerMissile();
+      
+      
 
     }
 
@@ -122,6 +133,10 @@ public class SpaceInvaders implements Jeu{
 		return this.vaisseau;
 	}
    
+   public Missile recupererUnMissile() {
+	   return this.missile;
+   }
+   
    public void initialiserJeu() {
 		Position positionVaisseau = new Position(this.longueur/2,this.hauteur-1);
 		Dimension dimensionVaisseau = new Dimension(Constante.VAISSEAU_LONGUEUR, Constante.VAISSEAU_HAUTEUR);
@@ -134,6 +149,19 @@ public class SpaceInvaders implements Jeu{
 		   throw new MissileException("Pas assez de hauteur libre entre le vaisseau et le haut de l'espace jeu pour tirer le missile");
 						
 	   this.missile = this.vaisseau.tirerUnMissile(dimensionMissile,vitesseMissile);
+	   
+
+   }
+
+   public void deplacerMissile() {
+	    if(aUnMissile()) {
+	    	if(missile.origine.y >= 0 + missile.dimension.hauteur()) {
+	    		missile.deplacerVerticalementVers(Direction.HAUT_ECRAN);
+	    	} else {
+	    		missile = null;
+	    	}
+	    }
+
    }
    
    
