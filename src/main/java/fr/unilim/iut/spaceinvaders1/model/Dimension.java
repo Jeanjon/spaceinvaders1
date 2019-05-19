@@ -1,4 +1,4 @@
-package fr.unilim.iut.spaceinvaders1;
+package fr.unilim.iut.spaceinvaders1.model;
 
 public class Dimension {
     int longueur;

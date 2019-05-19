@@ -1,6 +1,10 @@
 package fr.unilim.iut.spaceinvaders1;
 
 import org.junit.Test;
+
+import fr.unilim.iut.spaceinvaders1.model.Dimension;
+import fr.unilim.iut.spaceinvaders1.model.Position;
+import fr.unilim.iut.spaceinvaders1.model.Vaisseau;
 import fr.unilim.iut.spaceinvaders1.utils.*;
 
 public class VaisseauTest {
