@@ -10,7 +10,7 @@ public class SpaceInvaders implements Jeu{
 	Vaisseau vaisseau;
 	Missile missile;
 	Envahisseur envahisseur;
-	Boolean sens = true;
+	Boolean sensDeplacementEnvahisseur = true;
 	 
 	 public SpaceInvaders(int longueur, int hauteur) {
 		this.longueur = longueur;
@@ -207,18 +207,16 @@ public void positionnerUnNouveauEnvahisseur(Dimension dimension, Position positi
    }
    
    public void deplacerEnvahisseur() {
-
 	    if(aUnEnvahisseur()) {
-	    	if(sens) {
+	    	if(sensDeplacementEnvahisseur) {
 	    		if(envahisseur.origine.x <= 0) {
-	    			sens = false;
+	    			sensDeplacementEnvahisseur = false;
 	    		}
 	    		envahisseur.deplacerHorizontalementVers(Direction.GAUCHE);
-
 	    	}
 	    	else {
-	    		if(envahisseur.origine.x >= longueur) {
-	    			sens = true;
+	    		if(envahisseur.origine.x >= longueur - envahisseur.dimension.longueur) {
+	    			sensDeplacementEnvahisseur = true;
 	    		}
 	    		envahisseur.deplacerHorizontalementVers(Direction.DROITE);
 
