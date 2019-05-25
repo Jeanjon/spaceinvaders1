@@ -24,13 +24,30 @@ public class CollisionTest {
 	
 	@Test
 		public void testCollision_AUnePositionExacte() {
-		   missile = new Missile(new Dimension(3, 6), new Position(3, 4), 2);
-		   envahisseur = new Envahisseur(new Dimension(5, 4), new Position(3, 4), 2);
+		   missile = new Missile(new Dimension(2, 2), new Position(3, 4), 2);
+		   envahisseur = new Envahisseur(new Dimension(2, 2), new Position(3, 4), 2);
 		   
 		   collision.detecterCollision(envahisseur, missile);
 		   assertEquals(true ,collision.isCollisionMissileEnvahisseur());
 	   	}
 	
+	@Test
+	public void testCollision_EnvahisseurLimiteBasGauche() {
+		   missile = new Missile(new Dimension(2, 2), new Position(2, 5), 2);
+		   envahisseur = new Envahisseur(new Dimension(2, 2), new Position(3, 4), 2);
+		   
+		   collision.detecterCollision(envahisseur, missile);
+		   assertEquals(true ,collision.isCollisionMissileEnvahisseur());
+		}
 	
-
+	@Test
+	public void testCollision_EnvahisseurLimiteBasDroite() {
+		   missile = new Missile(new Dimension(2, 2), new Position(4, 5), 2);
+		   envahisseur = new Envahisseur(new Dimension(2, 2), new Position(3, 4), 2);
+		   
+		   collision.detecterCollision(envahisseur, missile);
+		   assertEquals(true ,collision.isCollisionMissileEnvahisseur());
+		}
+		
+		
 }

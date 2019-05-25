@@ -16,13 +16,23 @@ public class Collision {
 	}
 
 	public void detecterCollisionEntreUnMissileEtUnEnvahisseur(Sprite sprite1, Sprite sprite2) {
-		if(sprite1 instanceof Missile || sprite2 instanceof Missile) {
-			if(sprite1 instanceof Envahisseur || sprite2 instanceof Envahisseur) {
-				if(sprite1.occupeLaPosition(sprite2.origine.x, sprite2.origine.y)) {
+		if(sprite1 instanceof Missile && sprite2 instanceof Envahisseur) {
+			AvoirCollisionEntreMissileEtEnvahisseur((Envahisseur) sprite2, (Missile) sprite1);
+		}
+		if(sprite1 instanceof Envahisseur && sprite2 instanceof Missile) {
+			AvoirCollisionEntreMissileEtEnvahisseur((Envahisseur) sprite1, (Missile) sprite2);
+		}
+				
+		
+	}
+
+	public void AvoirCollisionEntreMissileEtEnvahisseur(Envahisseur envahisseur, Missile missile) {
+			if((envahisseur.abscisseLaPlusAGauche()<=missile.abscisseLaPlusADroite()) && (envahisseur.abscisseLaPlusADroite()>=missile.abscisseLaPlusAGauche())) {
+				if((envahisseur.ordonneeLaPlusBasse()<=missile.ordonneeLaPlusHaute()) && (envahisseur.ordonneeLaPlusHaute()>=missile.ordonneeLaPlusBasse())) {
 					setCollisionMissileEnvahisseur(true);
 				}
 			}
-		}
+		
 	}
 
 	public boolean isCollisionMissileEnvahisseur() {
