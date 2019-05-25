@@ -10,12 +10,12 @@ public class SpaceInvaders implements Jeu{
 	Vaisseau vaisseau;
 	Missile missile;
 	Envahisseur envahisseur;
-	Boolean sensDeplacementEnvahisseur = true;
+	Direction sensDeplacementEnvahisseur = Direction.GAUCHE;
 	 
-	 public SpaceInvaders(int longueur, int hauteur) {
+	public SpaceInvaders(int longueur, int hauteur) {
 		this.longueur = longueur;
 		this.hauteur = hauteur;
-	 }
+	}
 	 
 	 @Override
 		public String toString() {
@@ -96,15 +96,15 @@ public void positionnerUnNouveauEnvahisseur(Dimension dimension, Position positi
 		int y = position.ordonnee();
 		
 		if (!estDansEspaceJeu(x, y))
-			throw new HorsEspaceJeuException("La position du vaisseau est en dehors de l'espace jeu");
+			throw new HorsEspaceJeuException("La position du envahisseur est en dehors de l'espace jeu");
 
 		int longueurEnvahisseur = dimension.longueur();
 		int hauteurEnvahisseur = dimension.hauteur();
 		
 		if (!estDansEspaceJeu(x + longueurEnvahisseur - 1, y))
-			throw new DebordementEspaceJeuException("Le vaisseau déborde de l'espace jeu vers la droite à cause de sa longueur");
+			throw new DebordementEspaceJeuException("Le envahisseur déborde de l'espace jeu vers la droite à cause de sa longueur");
 		if (!estDansEspaceJeu(x, y - hauteurEnvahisseur + 1))
-			throw new DebordementEspaceJeuException("Le vaisseau déborde de l'espace jeu vers le bas à cause de sa hauteur");
+			throw new DebordementEspaceJeuException("Le envahisseur déborde de l'espace jeu vers le bas à cause de sa hauteur");
 
 	    envahisseur = new Envahisseur(dimension,position,vitesse);
 	}
@@ -208,22 +208,21 @@ public void positionnerUnNouveauEnvahisseur(Dimension dimension, Position positi
    
    public void deplacerEnvahisseur() {
 	    if(aUnEnvahisseur()) {
-	    	if(sensDeplacementEnvahisseur) {
+	    	if(sensDeplacementEnvahisseur == Direction.GAUCHE) {
 	    		if(envahisseur.origine.x <= 0) {
-	    			sensDeplacementEnvahisseur = false;
+	    			sensDeplacementEnvahisseur = Direction.DROITE;
+	    			envahisseur.deplacerVerticalementVers(Direction.BAS_ECRAN);
 	    		}
-	    		envahisseur.deplacerHorizontalementVers(Direction.GAUCHE);
+	    		envahisseur.deplacerHorizontalementVers(sensDeplacementEnvahisseur);
 	    	}
 	    	else {
 	    		if(envahisseur.origine.x >= longueur - envahisseur.dimension.longueur) {
-	    			sensDeplacementEnvahisseur = true;
+	    			sensDeplacementEnvahisseur = Direction.GAUCHE;
+	    			envahisseur.deplacerVerticalementVers(Direction.BAS_ECRAN);
 	    		}
-	    		envahisseur.deplacerHorizontalementVers(Direction.DROITE);
-
+	    		envahisseur.deplacerHorizontalementVers(sensDeplacementEnvahisseur);
 	    	}
-	    	
 	    }
-
   }
    
    
