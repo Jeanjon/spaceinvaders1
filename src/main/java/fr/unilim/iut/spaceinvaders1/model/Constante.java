@@ -7,7 +7,7 @@ public class Constante {
 	
 	   public static final int VAISSEAU_LONGUEUR = 40;
 	   public static final int VAISSEAU_HAUTEUR = 30;
-	   public static final int VAISSEAU_VITESSE = 10;
+	   public static final int VAISSEAU_VITESSE = 20;
 	   
 	
 	   public static final char MARQUE_FIN_LIGNE = '\n';
@@ -16,7 +16,7 @@ public class Constante {
 	   public static final char MARQUE_MISSILE = 'M';
 	   public static final char MARQUE_ENVAHISSEUR = 'E';
 	   
-	   public static final int MISSILE_VITESSE = 13;
+	   public static final int MISSILE_VITESSE = 25;
 	   public static final int MISSILE_HAUTEUR = 24;
 	   public static final int MISSILE_LONGUEUR = 10;
 	   
