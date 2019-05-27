@@ -11,7 +11,6 @@ public class SpaceInvaders implements Jeu{
 	Missile missile;
 	Envahisseur envahisseur;
 	Collision collision;
-	Direction sensDeplacementEnvahisseur = Direction.GAUCHE;
 	 
 	public SpaceInvaders(int longueur, int hauteur) {
 		this.longueur = longueur;
@@ -156,7 +155,14 @@ public void positionnerUnNouveauEnvahisseur(Dimension dimension, Position positi
       if(collision.isCollisionMissileEnvahisseur()) {
     	  missile = null;
     	  envahisseur = null;
-    	  collision.setCollisionMissileEnvahisseur(false);
+    	  collision.setCollision(false);
+      }
+      
+      collision.detecterCollision(vaisseau, envahisseur);
+      if(collision.isCollisionMissileEnvahisseur()) {
+    	  vaisseau = null;
+    	  envahisseur = null;
+    	  collision.setCollision(false);
       }
 
       
@@ -211,25 +217,29 @@ public void positionnerUnNouveauEnvahisseur(Dimension dimension, Position positi
 	    	} else {
 	    		missile = null;
 	    	}
+	    	
+	    	
 	    }
 
    }
    
    public void deplacerEnvahisseur() {
 	    if(aUnEnvahisseur()) {
-	    	if(sensDeplacementEnvahisseur == Direction.GAUCHE) {
+	    	if(envahisseur.sensDeplacementEnvahisseur == Direction.GAUCHE) {
+	    		envahisseur.deplacerHorizontalementVers(envahisseur.sensDeplacementEnvahisseur);
+	    		
 	    		if(envahisseur.origine.x <= 0) {
-	    			sensDeplacementEnvahisseur = Direction.DROITE;
+	    			envahisseur.sensDeplacementEnvahisseur = Direction.DROITE;
 	    			envahisseur.deplacerVerticalementVers(Direction.BAS_ECRAN);
 	    		}
-	    		envahisseur.deplacerHorizontalementVers(sensDeplacementEnvahisseur);
 	    	}
 	    	else {
+	    		envahisseur.deplacerHorizontalementVers(envahisseur.sensDeplacementEnvahisseur);
+	    	
 	    		if(envahisseur.origine.x >= longueur - envahisseur.dimension.longueur) {
-	    			sensDeplacementEnvahisseur = Direction.GAUCHE;
+	    			envahisseur.sensDeplacementEnvahisseur = Direction.GAUCHE;
 	    			envahisseur.deplacerVerticalementVers(Direction.BAS_ECRAN);
 	    		}
-	    		envahisseur.deplacerHorizontalementVers(sensDeplacementEnvahisseur);
 	    	}
 	    }
   }
