@@ -10,6 +10,7 @@ public class SpaceInvaders implements Jeu{
 	Vaisseau vaisseau;
 	Missile missile;
 	Envahisseur envahisseur;
+	Collision collision;
 	Direction sensDeplacementEnvahisseur = Direction.GAUCHE;
 	 
 	public SpaceInvaders(int longueur, int hauteur) {
@@ -149,10 +150,15 @@ public void positionnerUnNouveauEnvahisseur(Dimension dimension, Position positi
       
      
       deplacerMissile();
-      
-      
       deplacerEnvahisseur();
       
+      collision.detecterCollision(missile, envahisseur);
+      if(collision.isCollisionMissileEnvahisseur()) {
+    	  missile = null;
+    	  envahisseur = null;
+    	  collision.setCollisionMissileEnvahisseur(false);
+      }
+
       
 
     }
@@ -183,6 +189,9 @@ public void positionnerUnNouveauEnvahisseur(Dimension dimension, Position positi
 		Position positionEnvahisseur= new Position(this.longueur/2,this.hauteur-300);
 		Dimension dimensionEnvahissseur = new Dimension(Constante.ENVAHISSEUR_LONGUEUR, Constante.ENVAHISSEUR_HAUTEUR);
 		positionnerUnNouveauEnvahisseur(dimensionEnvahissseur, positionEnvahisseur, Constante.ENVAHISSEUR_VITESSE);
+		
+		collision = new Collision();
+		
 	 }
 
    public void tirerUnMissile(Dimension dimensionMissile, int vitesseMissile) {
